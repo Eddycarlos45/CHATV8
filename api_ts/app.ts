@@ -1,4 +1,5 @@
 import express from 'express'
+import auth from './infra/auth'
 import { router } from './router'
 
 const app = express()

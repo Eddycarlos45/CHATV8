@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import auth from './infra/auth'
 import { createUserController } from './UserUseCase'
 
 const router = Router()
