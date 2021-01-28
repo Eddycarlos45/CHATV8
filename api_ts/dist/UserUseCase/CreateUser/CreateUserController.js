@@ -10,6 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateUserController = void 0;
+const User_1 = require("../../entities/User");
+const class_validator_1 = require("class-validator");
 class CreateUserController {
     constructor(userUseCase) {
         this.userUseCase = userUseCase;
@@ -17,12 +19,19 @@ class CreateUserController {
     handle(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, email, password } = request.body;
+            const user = new User_1.User({
+                name,
+                email,
+                password
+            });
+            yield class_validator_1.validate(user)
+                .then(errors => {
+                if (errors.length > 0) {
+                    return response.status(400).send({ errors: errors });
+                }
+            });
             try {
-                yield this.userUseCase.execute({
-                    name,
-                    email,
-                    password
-                })
+                yield this.userUseCase.execute(user)
                     .then(user => {
                     return response.status(201).send(user);
                 });
