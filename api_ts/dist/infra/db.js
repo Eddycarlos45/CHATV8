@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 class Db {
     constructor() {
-        this.DB_URL = 'mongodb://link-db/chatv8';
+        this.DB_URL = 'mongodb://localhost/chatv8';
     }
     createConnection() {
         mongoose_1.default.connect(this.DB_URL);

@@ -10,12 +10,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginUserController = void 0;
+const Token_1 = require("../../utils/Token");
 class LoginUserController {
     constructor(loginUserUseCase) {
         this.loginUserUseCase = loginUserUseCase;
     }
     handle(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
+            const { email, password } = request.body;
+            try {
+                yield this.loginUserUseCase.execute(email, password)
+                    .then(user => {
+                    if (user.length == 0) {
+                        return response.status(404).send({ message: 'Usuario não encontrado' });
+                    }
+                    else {
+                        const token = new Token_1.Token();
+                        return response.status(200).send({ user, token: token.generateToken(email, password) });
+                    }
+                });
+            }
+            catch (error) {
+                return response.status(400).send({ message: error });
+            }
         });
     }
 }

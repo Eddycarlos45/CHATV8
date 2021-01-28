@@ -9,15 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginUserUseCase = void 0;
-class LoginUserUseCase {
-    constructor(userRepository) {
-        this.userRepository = userRepository;
+exports.ListAllUsersController = void 0;
+class ListAllUsersController {
+    constructor(listAllUserUseCase) {
+        this.listAllUserUseCase = listAllUserUseCase;
     }
-    execute(email, password) {
+    handle(request, response) {
         return __awaiter(this, void 0, void 0, function* () {
-            return yield this.userRepository.login(email, password);
+            try {
+                yield this.listAllUserUseCase.execute()
+                    .then(users => { return response.status(200).send(users); });
+            }
+            catch (error) {
+                return response.status(400).send({
+                    message: error.message
+                });
+            }
         });
     }
 }
-exports.LoginUserUseCase = LoginUserUseCase;
+exports.ListAllUsersController = ListAllUsersController;

@@ -17,7 +17,23 @@ const UserRepository_1 = __importDefault(require("../UserRepository"));
 class MongoUsersRepository {
     save(user) {
         return __awaiter(this, void 0, void 0, function* () {
-            UserRepository_1.default.create(user);
+            try {
+                yield UserRepository_1.default.create(user);
+                return user;
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+    }
+    list() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return UserRepository_1.default.find({});
+        });
+    }
+    login(email, password) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield UserRepository_1.default.find({ 'email': email, 'password': password });
         });
     }
 }

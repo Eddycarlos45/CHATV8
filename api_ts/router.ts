@@ -1,15 +1,19 @@
 import { Router } from 'express'
 import auth from './infra/auth'
-import { createUserController } from './UserUseCase'
+import { createUserController, listAllUsersController, loginUserController } from './UserUseCase'
 
 const router = Router()
 
-router.post('/', (req, res) => {
+router.post('/signin', (req, res) => {
     createUserController.handle(req, res)
 })
 
 router.get('/', (req, res) => {
-    res.send({ message: 'gg' })
+    listAllUsersController.handle(req, res)
+})
+
+router.post('/login', (req, res) => {
+    loginUserController.handle(req, res)
 })
 
 export { router }

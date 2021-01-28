@@ -9,6 +9,6 @@ export class CreateUserUseCase {
 
     async execute(data: ICreateUserRequestDTO) {
         const user = new User(data)
-        await this.userRepository.save(user)
+        return await this.userRepository.save(user)
     }
 }

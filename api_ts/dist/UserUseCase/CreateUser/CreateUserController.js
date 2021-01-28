@@ -18,12 +18,14 @@ class CreateUserController {
         return __awaiter(this, void 0, void 0, function* () {
             const { name, email, password } = request.body;
             try {
-                this.userUseCase.execute({
+                yield this.userUseCase.execute({
                     name,
                     email,
                     password
+                })
+                    .then(user => {
+                    return response.status(201).send(user);
                 });
-                return response.status(201).send();
             }
             catch (error) {
                 return response.status(400).send({

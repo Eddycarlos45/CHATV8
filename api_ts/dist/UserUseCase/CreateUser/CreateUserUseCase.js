@@ -18,7 +18,7 @@ class CreateUserUseCase {
     execute(data) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = new User_1.User(data);
-            yield this.userRepository.save(user);
+            return yield this.userRepository.save(user);
         });
     }
 }

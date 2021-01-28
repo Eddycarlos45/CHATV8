@@ -11,12 +11,14 @@ export class CreateUserController {
         const { name, email, password } = request.body
 
         try {
-            this.userUseCase.execute({
+            await this.userUseCase.execute({
                 name,
                 email,
                 password
             })
-            return response.status(201).send()
+                .then(user => {
+                    return response.status(201).send(user)
+                })
         } catch (error) {
             return response.status(400).send({
                 message: error.message
