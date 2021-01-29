@@ -7,6 +7,6 @@ const app_1 = require("./app");
 const db_1 = __importDefault(require("./infra/db"));
 const db = new db_1.default();
 db.createConnection();
-app_1.app.listen(3000, () => {
+app_1.app.listen(3050, () => {
     'Server is running';
 });
