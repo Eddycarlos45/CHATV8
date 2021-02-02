@@ -4,12 +4,8 @@ import { createUserController, listAllUsersController, loginUserController } fro
 
 const router = Router()
 
-router.post('/signin', (req, res) => {
+router.post('/signup', (req, res) => {
     createUserController.handle(req, res)
-})
-
-router.get('/', (req, res) => {
-    listAllUsersController.handle(req, res)
 })
 
 router.post('/login', (req, res) => {

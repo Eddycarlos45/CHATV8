@@ -17,7 +17,7 @@ function Copyright() {
 		<Typography variant="body2" color="textSecondary" align="center">
 			{'Copyright © '}
 			<Link color="inherit" href="#">
-				Mercado BR
+				ChatV8 BR
       </Link>{' '}
 			{new Date().getFullYear()}
 			{'.'}
@@ -49,26 +49,23 @@ export default function SignUp() {
 	const classes = useStyles();
 	const [errors, setErrors] = React.useState({})
 	const [values, setValues] = React.useState({
-		nome: '',
-		sobrenome: '',
+		name: '',
 		email: '',
-		senha: '',
-		confirmSenha: ''
-
+		password: '',
+		confirmPassword: ''
 	})
 
 	function handleSubmit(event) {
 		event.preventDefault()
-		if (values.senha !== values.confirmSenha) alert("Campos de confirmação de senha diferentes")
+		if (values.password !== values.confirmPassword) alert("Campos de confirmação de senha diferentes")
 
 		const newUser = {
-			nome: values.nome,
-			sobrenome: values.sobrenome,
+			name: values.name,
 			email: values.email,
-			senha: values.senha
+			password: values.password
 		}
 
-		axios.post('http://localhost:3030/signup', newUser)
+		axios.post('http://localhost:5000/signup', newUser)
 			.then(res => {
 				alert('Cadastro realizado com sucesso')
 				window.location.replace("/")
@@ -92,7 +89,7 @@ export default function SignUp() {
         </Typography>
 				<form className={classes.form} noValidate onSubmit={(e) => handleSubmit(e)}>
 					<Grid container spacing={2}>
-						<Grid item xs={12} sm={6}>
+						<Grid item xs={12}>
 							<TextField
 								name="nome"
 								variant="outlined"
@@ -104,19 +101,6 @@ export default function SignUp() {
 								onChange={handleChange('nome')}
 								helperText={errors.nome}
 								error={errors.nome ? true : false}
-							/>
-						</Grid>
-						<Grid item xs={12} sm={6}>
-							<TextField
-								variant="outlined"
-								required
-								fullWidth
-								id="sobrenome"
-								label="Sobrenome"
-								name="sobrenome"
-								onChange={handleChange('sobrenome')}
-								helperText={errors.sobrenome}
-								error={errors.sobrenome ? true : false}
 							/>
 						</Grid>
 						<Grid item xs={12}>
