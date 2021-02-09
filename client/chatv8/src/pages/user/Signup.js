@@ -65,12 +65,18 @@ export default function SignUp() {
 			password: values.password
 		}
 
-		axios.post('http://localhost:5000/signup', newUser)
+		axios.post('http://localhost:3050/signup', newUser)
 			.then(res => {
 				alert('Cadastro realizado com sucesso')
 				window.location.replace("/")
 			})
-			.catch(err => setErrors(err.response.data))
+			.catch(err => {
+				let error = []
+				error.push(err.response.data.errors[0].constraints.minLength)
+				error.push(err.response.data.errors[0].constraints.isNotBlank)
+				error.push(err.response.data.errors[0].constraints.maxLength)
+				alert(error)
+			})
 	}
 
 	const handleChange = (prop) => (event) => {
@@ -91,14 +97,14 @@ export default function SignUp() {
 					<Grid container spacing={2}>
 						<Grid item xs={12}>
 							<TextField
-								name="nome"
+								name="name"
 								variant="outlined"
 								required
 								fullWidth
-								id="nome"
+								id="name"
 								label="Nome"
 								autoFocus
-								onChange={handleChange('nome')}
+								onChange={handleChange('name')}
 								helperText={errors.nome}
 								error={errors.nome ? true : false}
 							/>
@@ -121,11 +127,11 @@ export default function SignUp() {
 								variant="outlined"
 								required
 								fullWidth
-								name="senha"
+								name="password"
 								label="Senha"
 								type="password"
 								id="senha"
-								onChange={handleChange('senha')}
+								onChange={handleChange('password')}
 								helperText={errors.senha}
 								error={errors.senha ? true : false}
 							/>
@@ -135,11 +141,11 @@ export default function SignUp() {
 								variant="outlined"
 								required
 								fullWidth
-								name="confirmSenha"
+								name="confirmPassword"
 								label="Confirma Senha"
 								type="password"
-								id="confirmSenha"
-								onChange={handleChange('confirmSenha')}
+								id="confirmPassword"
+								onChange={handleChange('confirmPassword')}
 							/>
 						</Grid>
 						<Grid item xs={12}>

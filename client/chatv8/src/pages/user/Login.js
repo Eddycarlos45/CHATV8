@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+
 	const classes = useStyles();
 	const [errors, setErrors] = React.useState({})
 	const [values, setValues] = React.useState({
@@ -71,7 +72,10 @@ export default function SignIn() {
 				localStorage.setItem('token', res.data.token)
 				window.location.replace("/home")
 			})
-			.catch(err => setErrors(err.response.data))
+			.catch(err => {
+				alert(err.response.data.message)
+				setErrors(err.response.data)
+			})
 	}
 
 	return (
