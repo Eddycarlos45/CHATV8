@@ -13,7 +13,7 @@ export class LoginUserController {
         try {
             await this.loginUserUseCase.execute(email, password)
                 .then(user => {
-                    if (user.length == 0) {
+                    if (user.length <= 0) {
                         return response.status(404).send({ message: 'Usuario não encontrado' })
                     } else {
                         const token = new Token()
