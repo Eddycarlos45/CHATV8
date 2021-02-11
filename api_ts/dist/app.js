@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.app = void 0;
-const express_1 = __importDefault(require("express"));
+exports.server = void 0;
 const router_1 = require("./router");
 const cors_1 = __importDefault(require("cors"));
+const express_1 = __importDefault(require("express"));
+const http_1 = __importDefault(require("http"));
 const app = express_1.default();
-exports.app = app;
+const socket = require('socket.io');
 const options = {
     methods: "GET,OPTIONS,PUT,POST,DELETE",
     origin: "*"
@@ -16,3 +17,19 @@ const options = {
 app.use(cors_1.default(options));
 app.use(express_1.default.json());
 app.use(router_1.router);
+const server = http_1.default.createServer(app);
+exports.server = server;
+const io = require("socket.io")(server, {
+    cors: {
+        origin: "http://localhost:3000",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true
+    }
+});
+io.on("connection", (socket) => {
+    socket.emit("your id", socket.id);
+    socket.on("send message", body => {
+        io.emit('message', body);
+    });
+});

@@ -1,7 +1,7 @@
-import { app } from "./app";
+import { server } from "./app";
 import Db from "./infra/db";
 
 const db = new Db()
 db.createConnection()
 
-app.listen(3050, () => { 'Server is running' })
+server.listen(3050, () => { console.log('Server is running') })
