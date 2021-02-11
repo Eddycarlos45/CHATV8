@@ -6,7 +6,7 @@ import './App.css';
 //Pages
 import login from './pages/user/Login';
 import signUp from './pages/user/Signup';
-import home from './pages/chat/Home';
+import Home from './pages/chat/Home';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -28,7 +28,7 @@ class App extends Component {
         <Router>
           <div className="container">
             <Switch>
-              <PrivateRoute exact path="/home" component={home} />
+              <PrivateRoute exact path="/home" component={Home} />
               <Route exact path="/" component={login} />
               <Route exact path="/signup" component={signUp} />
             </Switch>
