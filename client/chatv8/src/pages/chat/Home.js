@@ -99,7 +99,7 @@ const App = () => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io.connect('http://localhost:3050');
+    socketRef.current = io.connect('http://localhost:5000');
 
     socketRef.current.on("your id", id => {
       setYourID(id);
