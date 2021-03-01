@@ -57,7 +57,10 @@ export default function SignUp() {
 
 	function handleSubmit(event) {
 		event.preventDefault()
-		if (values.password !== values.confirmPassword) alert("Campos de confirmação de senha diferentes")
+		if (values.password !== values.confirmPassword){
+			alert("Campos de confirmação de senha diferentes")
+			return
+		} 
 
 		const newUser = {
 			name: values.name,
@@ -65,7 +68,7 @@ export default function SignUp() {
 			password: values.password
 		}
 
-		axios.post('http://localhost:3050/signup', newUser)
+		axios.post('http://localhost:5000/signup', newUser)
 			.then(res => {
 				alert('Cadastro realizado com sucesso')
 				window.location.replace("/")

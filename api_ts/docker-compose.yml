@@ -1,7 +1,7 @@
 version: "3"
 services:
   api_dev:
-    image: edsonsousa33/api-ts
+    image: edsoncarlos33/chatv8-api
     ports:
       - "5000:3050"
     links:
@@ -14,7 +14,7 @@ services:
     environment:
       - AUTH=no
   client_dev:
-    image: edsonsousa33/client-ts
+    image: edsoncarlos33/chatv8-client
     ports:
       - "3001:3000"
     links: 
