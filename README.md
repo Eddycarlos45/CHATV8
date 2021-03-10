@@ -14,6 +14,7 @@
 🔵ReactJS<br/>
 🟢Jest<br/>
 🔵Docker<br/>
+🟠Websocket<br/>
 
 # Como funciona? 🤔
 
