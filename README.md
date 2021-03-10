@@ -12,6 +12,7 @@
 🟠MongoDb<br/>
 🔵TypeScript<br/>
 🔵ReactJS<br/>
+🟢Jest<br/>
 
 # Como funciona? 🤔
 
