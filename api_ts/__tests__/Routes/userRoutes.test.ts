@@ -1,5 +1,12 @@
 import { server } from "../../app";
+import Db from "../../infra/db";
+
+const db = new Db();
 const request = require("supertest");
+
+beforeAll(() => {
+  db.createConnection();
+});
 
 describe("User Routes", () => {
   test("should create a user", async () => {
@@ -11,7 +18,24 @@ describe("User Routes", () => {
 
     expect(response.status).toBe(201);
   });
-  test("should not create a user with empty fields", async () => {
+
+  test("should success response to /login", async () => {
+    const response = await request(server).post("/login").send({
+      email: "test2@email.com",
+      password: "test123",
+    });
+    expect(response.status).toBe(200);
+  });
+
+  test("should not success response to /login", async () => {
+    const response = await request(server).post("/login").send({
+      email: "fake@email.com",
+      password: "test123",
+    });
+    expect(response.status).toBe(404);
+  });
+
+  test("should not create a user with wrong fields", async () => {
     const response = await request(server).post("/signup").send({
       name: "",
       email: "",
@@ -23,29 +47,13 @@ describe("User Routes", () => {
     expect(response.body.errors[1].constraints.isNotBlank).toEqual(
       "Digite um email"
     );
+    expect(response.body.errors[1].constraints.isEmail).toEqual(
+      "E-mail inválido"
+    );
     expect(response.body.errors[2].constraints.isNotBlank).toEqual(
       "Digite uma senha"
     );
-  });
-
-  test("should not create a user with unformated email", async () => {
-    const response = await request(server).post("/signup").send({
-      name: "test",
-      email: "test@",
-      password: "123456",
-    });
-    expect(response.body.errors[0].constraints.isEmail).toEqual(
-      "E-mail inválido"
-    );
-  });
-
-  test("should not create a user with minLenght password", async () => {
-    const response = await request(server).post("/signup").send({
-      name: "test",
-      email: "test@email.com",
-      password: "12345",
-    });
-    expect(response.body.errors[0].constraints.minLength).toEqual(
+    expect(response.body.errors[2].constraints.minLength).toEqual(
       "A senha deve ter no mínimo 6 caracteres."
     );
   });

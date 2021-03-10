@@ -16,7 +16,8 @@
   ],
   "exclude": [
     "node_modules",
-    "__tests__"
+    "__tests__",
+    "coverage"
   ],
   "buildOnSave": true,
   "compileOnSave": true

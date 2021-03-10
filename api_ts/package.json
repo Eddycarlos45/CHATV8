@@ -6,7 +6,7 @@
   "scripts": {
     "compile": "tsc -w",
     "start": "node dist/server.js",
-    "test": "jest --detectOpenHandles --forceExit"
+    "test": "jest --detectOpenHandles --coverage --forceExit"
   },
   "keywords": [],
   "author": "",
