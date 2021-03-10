@@ -13,6 +13,7 @@
 🔵TypeScript<br/>
 🔵ReactJS<br/>
 🟢Jest<br/>
+🔵Docker<br/>
 
 # Como funciona? 🤔
 
